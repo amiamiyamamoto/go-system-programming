@@ -2,11 +2,9 @@ package main
 
 import (
 	"bytes"
-	"compress/gzip"
 	"encoding/json"
 	"io"
 	"net/http"
-	"os"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -23,20 +21,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	encoder.SetIndent("", "    ")
 	encoder.Encode(source)
 
-	// gzipに圧縮する
-	file, err := os.Create("test.json.gz")
-	if err != nil {
-		panic(err)
-	}
-	gz_w := gzip.NewWriter(file)
-	gz_w.Header.Name = "test.json"
-	io.Copy(gz_w, &buffer)
-	defer gz_w.Close()
+	// Clientへ返す
+	// io.WriteString(w, buffer.String())
+	io.WriteString(w, "aaa")
 
-	// 圧縮に平文渡す
-	// 標準出力に平文わたす
-	// レスポンスライターに圧縮わたす
-	io.Copy(w, file)
+	// 標準出力する →　成功
+	// io.Copy(os.Stdout, &buffer)
+
 }
 
 func main() {
