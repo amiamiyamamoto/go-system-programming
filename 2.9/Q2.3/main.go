@@ -2,9 +2,11 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
 	"encoding/json"
 	"io"
 	"net/http"
+	"os"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -18,15 +20,19 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// json化する
 	var buffer bytes.Buffer
 	encoder := json.NewEncoder(&buffer)
+	// encoder := json.NewEncoder(w)
 	encoder.SetIndent("", "    ")
 	encoder.Encode(source)
 
-	// Clientへ返す
-	// io.WriteString(w, buffer.String())
-	io.WriteString(w, "aaa")
+	//gzip化する
+	gzip_writer := gzip.NewWriter(w)
+	defer gzip_writer.Close()
 
-	// 標準出力する →　成功
-	// io.Copy(os.Stdout, &buffer)
+	// レスポンスライターと標準出力をまとめる
+	writer := io.MultiWriter(gzip_writer, os.Stdout)
+
+	// レスポンス返却、標準出力する
+	io.Copy(writer, &buffer)
 
 }
 
