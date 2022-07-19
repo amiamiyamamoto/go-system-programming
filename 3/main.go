@@ -12,13 +12,24 @@ func main() {
 	file, _ := os.Open("text.txt")
 	defer file.Close()
 
-	buff, err := io.ReadAll(file)
+	readfull(file)
+
+}
+
+func readfull(file *os.File) {
+	buff := make([]byte, 4)
+	_, err := io.ReadFull(file, buff)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(buff)
 }
 
-func readall() {
+func readall(file *os.File) {
+	buff, err := io.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(buff)
 
 }
