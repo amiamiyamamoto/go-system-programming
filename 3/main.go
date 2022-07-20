@@ -12,8 +12,11 @@ func main() {
 	file, _ := os.Open("text.txt")
 	defer file.Close()
 
-	readfull(file)
+	iocopy(file)
 
+}
+func iocopy(file *os.File) {
+	io.Copy(os.Stdout, file)
 }
 
 func readfull(file *os.File) {
