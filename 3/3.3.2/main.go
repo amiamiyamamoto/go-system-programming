@@ -2,25 +2,31 @@ package main
 
 import (
 	"bufio"
+	"bytes"
+	"fmt"
 	"io"
-	"os"
 	"strings"
 )
 
+var reader io.Reader = strings.NewReader("テストデータ")
+
 // strings.Readerはio.Closerではないが、
 // io.NopCloserでCloseメソッドを持たせることができる
-var reader io.Reader = strings.NewReader("テストデータ")
 var readCloser io.ReadCloser = io.NopCloser(reader)
 
 // io.Reader とio.Writerをつなげて
 // io.ReadWriter型のオブジェクトを作ることができる
-var testReader io.Reader = strings.NewReader("テストデータReader")
-var r = bufio.NewReader(testReader)
-var w = bufio.NewWriter(os.Stdout)
+var buf bytes.Buffer
+var r = bufio.NewReader(reader)
+var w = bufio.NewWriter(&buf)
 var readWriter io.ReadWriter = bufio.NewReadWriter(r, w)
 
 func main() {
 	readCloser.Close() // 何も起きない
 
-	io.Copy(w, readWriter)
+	// readWriterを読んでreadWriterに書き込む
+	io.Copy(readWriter, readWriter)
+	// wに値が入っている
+	fmt.Println(w)
+
 }
