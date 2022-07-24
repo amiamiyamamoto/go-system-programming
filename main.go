@@ -12,11 +12,10 @@ func main() {
 
 	fmt.Println(aa.reallyrename("yamamoto"))
 	fmt.Println(aa.Name)
-	// fmt.Println(aa.aminame())
-	// fmt.Println(aa.myname())
 
-	// point()
-
+	// ポインタ型からも呼べる
+	(&aa).pointamethod()
+	fmt.Println(aa.Name)
 }
 
 type Ami struct {
@@ -30,6 +29,9 @@ func (ami Ami) changename(name string) string {
 func (ami *Ami) reallyrename(name string) string {
 	ami.Name = name
 	return name
+}
+func (ami *Ami) pointamethod() {
+	ami.Name += "ami"
 }
 
 // ポインタ型・構造体のメソッドどちらもフィールドを呼び出せる
