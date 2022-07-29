@@ -12,7 +12,7 @@ func dumpChunk(chunk io.Reader) {
 	binary.Read(chunk, binary.BigEndian, &length)
 	buffer := make([]byte, 4)
 	chunk.Read(buffer)
-	fmt.Printf("chunk '%v' (%d byte)", string(buffer), length)
+	fmt.Printf("chunk '%v' (%d byte)\n", string(buffer), length)
 }
 
 func readChunks(file *os.File) []io.Reader {
