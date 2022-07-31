@@ -40,7 +40,7 @@ func readChunks(file *os.File) []io.Reader {
 		// 次のチャンクの先頭に移動
 		// 現在位置は長さを読み終わった箇所なので、
 		// チャンク名（4バイト）+データ長+CRC（4バイト）先に移動
-		offset, _ = file.Seek(int64(length+8), 1)
+		offset, _ = file.Seek(int64(length+8), 1) //第2引数の2は「前回Seekした位置からoffsetする」の意味
 	}
 	return chunks
 }
@@ -79,6 +79,6 @@ func main() {
 	// 残りのチャンクを追加
 	for _, chunk := range chunks[1:] {
 		io.Copy(newFile, chunk)
-		// dumpChunk(chunk)
+		dumpChunk(chunk)
 	}
 }
