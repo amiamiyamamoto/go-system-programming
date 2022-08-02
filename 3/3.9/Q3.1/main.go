@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 )
 
@@ -12,11 +11,14 @@ func main() {
 		panic(err)
 	}
 	defer oldfile.Close()
-	old, err := io.ReadAll(oldfile)
+
+	newfile, err := os.Create("new2.txt")
 	if err != nil {
 		panic(err)
 	}
-	err = ioutil.WriteFile("new.txt", old, 0666)
+	defer newfile.Close()
+
+	_, err = io.Copy(newfile, oldfile)
 	if err != nil {
 		panic(err)
 	}
