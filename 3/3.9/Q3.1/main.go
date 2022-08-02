@@ -6,13 +6,15 @@ import (
 )
 
 func main() {
-	oldfile, err := os.Open("old.txt")
+	oldfn := os.Args[1]
+	newfn := os.Args[2]
+	oldfile, err := os.Open(oldfn)
 	if err != nil {
 		panic(err)
 	}
 	defer oldfile.Close()
 
-	newfile, err := os.Create("new2.txt")
+	newfile, err := os.Create(newfn)
 	if err != nil {
 		panic(err)
 	}
