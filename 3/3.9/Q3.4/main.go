@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// zipをWebサーバからダウンロード
 func main() {
 
 	http.HandleFunc("/", handeler)

@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// ファイルを作成して、ランダムな内容で埋める
 func main() {
 	randReader := rand.Reader
 	// lread := io.LimitReader(randReader, 1024)

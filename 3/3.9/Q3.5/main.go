@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// io.CopyN を自作する
 func main() {
 
 	mycopyn.CopyN(os.Stdout, strings.NewReader("テストio.Reader"), 5)

@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// zipファイルの書き込み
 func main() {
 	// sr := strings.NewReader("sample text for zip")
 

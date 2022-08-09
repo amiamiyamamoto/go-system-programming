@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ファイルのコピー
 func main() {
 	oldfn := os.Args[1]
 	newfn := os.Args[2]
