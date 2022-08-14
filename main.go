@@ -1,8 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"log"
+	"os"
+	"strings"
+)
 
 func main() {
+	// pipe()
 	aa := Ami{Name: "amiami"}
 
 	// ポインタ型にメソッドを持たせないとフィールドの値を変更することはできない
@@ -54,4 +61,18 @@ func point() {
 	var abc string = "yamamoto"
 	var yama = &abc
 	println(abc, *yama, yama)
+}
+
+func pipe() {
+	pr, pw := io.Pipe()
+
+	go func() {
+		defer pw.Close()
+		io.Copy(pw, strings.NewReader("io.Pipeのテスト"))
+	}()
+
+	if _, err := io.Copy(os.Stdout, pr); err != nil {
+		log.Fatal(err)
+	}
+
 }
