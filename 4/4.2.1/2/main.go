@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// チャネルを使ったタイマー待ちの例
 func main() {
 	fmt.Println("start sub()")
 
