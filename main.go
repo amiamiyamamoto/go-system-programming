@@ -10,6 +10,7 @@ import (
 
 func main() {
 	// pipe()
+	floattoint()
 	aa := Ami{Name: "amiami"}
 
 	// ポインタ型にメソッドを持たせないとフィールドの値を変更することはできない
@@ -75,4 +76,12 @@ func pipe() {
 		log.Fatal(err)
 	}
 
+}
+
+func floattoint() {
+	f := float32(1.99)
+	var i int
+	i = int(f) // 小数点以下を切り捨てる
+
+	fmt.Println(i)
 }
