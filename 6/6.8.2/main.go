@@ -34,7 +34,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Println(string(dump))
-	if len(response.TransferEncoding) < 1 || response.Request.TransferEncoding[0] != "chunked" {
+	if len(response.TransferEncoding) < 1 || response.TransferEncoding[0] != "chunked" {
 		panic("wrong transfer encoding")
 	}
 	for {
