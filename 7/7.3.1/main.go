@@ -7,11 +7,11 @@ import (
 )
 
 // UDP マルチキャスト サーバー側の実装例
-const interval = 10 * time.Second
+const interval = 3 * time.Second
 
 func main() {
-	fmt.Println("Start tick server at 244.0.0.1:9999")
-	conn, err := net.Dial("udp", "244.0.0.1:9999")
+	fmt.Println("Start tick server at 244.0.0.2:9999")
+	conn, err := net.Dial("udp", "224.0.0.2:9999")
 	if err != nil {
 		panic(err)
 	}
