@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+// Unixドメインソケット版のHTTPサーバー
 func main() {
 	path := filepath.Join(os.TempDir(), "unixdomainsocket-sample")
 	os.Remove(path)
