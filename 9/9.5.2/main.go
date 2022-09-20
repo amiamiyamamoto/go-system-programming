@@ -8,6 +8,6 @@ import (
 
 // パスを分割する
 func main() {
-	dir, name := filepath.Split(os.Getenv("GOPATH"))
+	dir, name := filepath.Split(os.Getenv("PATH"))
 	fmt.Printf("Dir: %s, Name: %s\n", dir, name)
 }
