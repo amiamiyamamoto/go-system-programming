@@ -20,7 +20,7 @@ func main() {
 			select {
 			case event := <-watcher.Events:
 				log.Println("event:", event)
-				if event.Op&fsnotify.Create == fsnotify.Create {
+				if event.Op == fsnotify.Create {
 					log.Println("create file:", event.Name)
 					counter++
 				} else if event.Op&fsnotify.Write == fsnotify.Write {
