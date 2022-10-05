@@ -63,11 +63,11 @@ func (cf *CloudFileSystem) Readdir(path string, fill func(name string, stat *fus
 	fill(".", nil, 0)
 	fill("..", nil, 0)
 	prefix := strings.TrimLeft(path, "/")
-	if prefix =! "" {
+	if prefix != "" {
 		prefix = prefix + "/"
 	}
 	i := cf.bucket.List(&blob.ListOptions{
-		Prefix: prefix,
+		Prefix:    prefix,
 		Delimiter: "/",
 	})
 	for {
@@ -79,7 +79,7 @@ func (cf *CloudFileSystem) Readdir(path string, fill func(name string, stat *fus
 		if len(key) == 0 {
 			continue
 		}
-		fill(strings.TrimRight(key, "/"), nil,0)
+		fill(strings.TrimRight(key, "/"), nil, 0)
 	}
 	return 0
 }
