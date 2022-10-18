@@ -14,7 +14,7 @@ func parseCmd(cmdStr string) (cmd string, args []string, err error) {
 	if err != nil {
 		return
 	}
-	for ; token, err := l.Next(); err != nil {
+	for token, err := l.Next(); err != nil; {
 		args = append(args, token)
 	}
 	return
