@@ -2,4 +2,12 @@ module shelx
 
 go 1.19
 
-require github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+require (
+	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+	github.com/peterh/liner v1.2.2
+)
+
+require (
+	github.com/mattn/go-runewidth v0.0.3 // indirect
+	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect
+)
