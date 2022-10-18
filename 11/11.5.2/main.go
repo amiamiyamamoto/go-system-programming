@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"strings"
@@ -26,11 +27,18 @@ func main() {
 	line := liner.NewLiner()
 	line.SetCtrlCAborts(true)
 	for {
-		if cmd, err := line.Prompt(" "); err == nil {
-			if cmd == "" {
+		if cmdStr, err := line.Prompt("$"); err == nil {
+			if cmdStr == "" {
 				continue
 			}
 			// ここでコマンド処理
+			fmt.Println(cmdStr)
+			cmd, args, err := parseCmd(cmdStr) // ここでもループ＆待機に入っている？
+			if err != nil {
+				log.Print(err)
+				break
+			}
+			_, _ = cmd, args
 		} else if errors.Is(err, io.EOF) {
 			break
 		} else if err == liner.ErrPromptAborted {
