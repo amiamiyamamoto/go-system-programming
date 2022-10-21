@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/shlex"
@@ -49,6 +50,26 @@ func main() {
 			log.Print("Error reading line: ", err)
 		}
 	}
+}
+
+// 相対パスを絶対パスに変換する
+func expandPath(dir, workDir string) string {
+	if filepath.IsAbs(dir) {
+		return dir
+	}
+	return filepath.Join(workDir, dir)
+}
+
+// ワイルドカードなどの展開
+func expandWildcard(arg, workDir string) ([]string, error) {
+	if !strings.ContainsAny(arg, "*?[") {
+		return []string{arg}, nil
+	}
+	files, err := filepath.Glob(expandPath(arg, workDir))
+	if len(files) == 0 {
+		return nil, err
+	}
+	return files, err
 }
 
 // 入力されたテキストの分解はスペースで区切られた文字列？
