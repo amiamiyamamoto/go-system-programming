@@ -35,12 +35,18 @@ func main() {
 			}
 			// ここでコマンド処理
 			fmt.Println(cmdStr)
-			cmd, args, err := parseCmd(cmdStr) // ここでもループ＆待機に入っている？
+			cmd, args, err := parseCmd(cmdStr)
 			if err != nil {
 				log.Print(err)
 				break
 			}
-			_, _ = cmd, args
+			_ = cmd
+			// 引数の処理
+			for _, arg := range args {
+				// 絶対パス処理とワイルドカード展開を追加する
+				// argがパスじゃない場合も大丈夫？
+
+			}
 		} else if errors.Is(err, io.EOF) {
 			break
 		} else if err == liner.ErrPromptAborted {
