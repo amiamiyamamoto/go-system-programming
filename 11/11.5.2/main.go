@@ -45,8 +45,12 @@ func main() {
 			for _, arg := range args {
 				// 絶対パス処理とワイルドカード展開を追加する
 				// argがパスじゃない場合も大丈夫？
-
 			}
+
+			reader, writer := io.Pipe()
+			c1.Stdout = writer
+			c2.Stdin = reader
+
 		} else if errors.Is(err, io.EOF) {
 			break
 		} else if err == liner.ErrPromptAborted {
