@@ -2,9 +2,9 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -33,23 +33,40 @@ func main() {
 			if cmdStr == "" {
 				continue
 			}
+
 			// ここでコマンド処理
-			fmt.Println(cmdStr)
 			cmd, args, err := parseCmd(cmdStr)
 			if err != nil {
 				log.Print(err)
 				break
 			}
-			_ = cmd
-			// 引数の処理
-			for _, arg := range args {
-				// 絶対パス処理とワイルドカード展開を追加する
-				// argがパスじゃない場合も大丈夫？
+			// カレントディレクトリを取得
+			wd, err := os.Getwd()
+			_ = wd
+			if err != nil {
+				log.Print("Error get working dir: ", err)
 			}
 
-			reader, writer := io.Pipe()
-			c1.Stdout = writer
-			c2.Stdin = reader
+			var exe_args []string // ワイルドカードなどを展開したargs
+			// 引数の処理
+			for _, arg := range args {
+				// argがパスかどうか判定する（最初の文字が"."or"/"）
+				if strings.HasPrefix(arg, ".") || strings.HasPrefix(arg, "/") {
+					dirs, err := expandWildcard(arg, wd)
+					if err != nil {
+						log.Print("Error expandWildcard: ", err)
+					}
+					exe_args = append(exe_args, dirs...)
+				} else {
+					exe_args = append(exe_args, arg)
+				}
+			}
+
+			_ = cmd
+
+			// reader, writer := io.Pipe()
+			// c1.Stdout = writer
+			// c2.Stdin = reader
 
 		} else if errors.Is(err, io.EOF) {
 			break
@@ -73,7 +90,7 @@ func expandPath(dir, workDir string) string {
 // ワイルドカードなどの展開
 func expandWildcard(arg, workDir string) ([]string, error) {
 	if !strings.ContainsAny(arg, "*?[") {
-		return []string{arg}, nil
+		return []string{expandPath(arg, workDir)}, nil
 	}
 	files, err := filepath.Glob(expandPath(arg, workDir))
 	if len(files) == 0 {
