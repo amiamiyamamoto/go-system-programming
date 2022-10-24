@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -40,18 +41,17 @@ func main() {
 				log.Print(err)
 				break
 			}
-			// カレントディレクトリを取得
-			wd, err := os.Getwd()
-			_ = wd
-			if err != nil {
-				log.Print("Error get working dir: ", err)
-			}
 
 			var exe_args []string // ワイルドカードなどを展開したargs
 			// 引数の処理
 			for _, arg := range args {
 				// argがパスかどうか判定する（最初の文字が"."or"/"）
 				if strings.HasPrefix(arg, ".") || strings.HasPrefix(arg, "/") {
+					// カレントディレクトリを取得
+					wd, err := os.Getwd()
+					if err != nil {
+						log.Print("Error get working dir: ", err)
+					}
 					dirs, err := expandWildcard(arg, wd)
 					if err != nil {
 						log.Print("Error expandWildcard: ", err)
@@ -62,6 +62,7 @@ func main() {
 				}
 			}
 
+			fmt.Println(exe_args)
 			_ = cmd
 
 			// reader, writer := io.Pipe()
