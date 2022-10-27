@@ -11,5 +11,3 @@ func main() {
 	fmt.Printf("実行ユーザID: %d\n", os.Geteuid())
 	fmt.Printf("実行グループID: %d\n", os.Getegid())
 }
-
-// TODO:chownして実行してみる
