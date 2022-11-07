@@ -10,6 +10,8 @@ import (
 
 func main() {
 	ctx := context.Background()
+	// SIGINT -> Ctrl + C
+	// SIGTERM -> killコマンドのデフォルトシグナル
 	sigctx, cancel := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 	toctx, cancel2 := context.WithTimeout(ctx, time.Second*5)
