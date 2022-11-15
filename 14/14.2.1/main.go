@@ -13,6 +13,7 @@ func main() {
 	go sub1(10)
 
 	// クロージャのキャプチャ渡し
+	// 内部的には無名関数に暗黙の引数が追加され、データ参照している
 	c := 20
 	go func() {
 		fmt.Println("share by capture", c*c)
