@@ -1,6 +1,9 @@
 package main
 
-import "sync"
+import (
+	"fmt"
+	"sync"
+)
 
 var id int
 
@@ -12,6 +15,15 @@ func generateId(mutex *sync.Mutex) int {
 	mutex.Unlock()
 	return result
 }
+
+func generateId2(mutex *sync.Mutex) int {
+	// 多くの場合は次のように連続して書く
+	mutex.Lock()
+	defer mutex.Unlock()
+	id++
+	return id
+}
+
 func main() {
 	//sync.Mutex構造体の変数宣言
 	// 次の宣言をしてもポインタ型になるだけで正常に動作する
@@ -20,8 +32,7 @@ func main() {
 
 	for i := 0; i < 100; i++ {
 		go func() {
-			fmt.Pirntf("id: %d\n", generateId(&mutex))
+			fmt.Printf("id: %d\n", generateId(&mutex))
 		}()
 	}
-
 }
