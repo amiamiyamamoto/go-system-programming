@@ -19,4 +19,10 @@ func main() {
 	// 取り出し方法
 	value, ok := smap.Load("Hello")
 	fmt.Printf("key=%v value=%v exists?=%v\n", "hello", value, ok)
+
+	// 標準のrangeは使えないが、ループを行うメソッドが用意されている
+	smap.Range(func(key, value interface{}) bool {
+		fmt.Printf("%v: %v\n", key, value)
+		return true
+	})
 }
