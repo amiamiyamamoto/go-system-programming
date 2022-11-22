@@ -25,4 +25,10 @@ func main() {
 		fmt.Printf("%v: %v\n", key, value)
 		return true
 	})
+
+	// キーが登録されていれば過去のデータを、登録されていなければ新しい値を登録するメソッド
+	// これは既に登録されているので無視
+	smap.LoadOrStore(1, 3)
+	// これは保存されていないので挿入
+	smap.LoadOrStore(2, 4)
 }
