@@ -20,7 +20,7 @@ func main() {
 			fmt.Println(task)
 
 			wg.Done()
-		}(task)
+		}(task) // goroutineごとにtaskのコピーが作られるようにしている
 	}
 	wg.Wait()
 }
