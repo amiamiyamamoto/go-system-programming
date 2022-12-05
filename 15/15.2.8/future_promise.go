@@ -38,7 +38,13 @@ func printFunc(futureSource chan string) chan []string {
 }
 
 func main() {
-	futureSource := readFile("future?promise.go")
+	// Future/Promiseは1977年の論文で紹介された手法
+	// 将来得られるはずの入力(Future)を使ってロジックを作成し
+	// 将来値を提供するという約束(Promise)が果たされると必要なデータが揃ったタスクが逐次実行される
+	// Goではタスクをgoroutineとして表現し、
+	// Futureはバッファなしチャネルの受信、
+	// Promiseはそのチャネルへの送信で実現できる
+	futureSource := readFile("future_promise.go")
 	futureFuncs := printFunc(futureSource)
 	fmt.Println(strings.Join(<-futureFuncs, "\n"))
 }
