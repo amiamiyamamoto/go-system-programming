@@ -19,7 +19,7 @@ type helloActor struct{}
 // アクターのメールボックス受診時に呼ばれるメソッド
 func (state *helloActor) Receive(context actor.Context) {
 	switch msg := context.Message().(type) {
-	case *hello:
+	case *Hello:
 		fmt.Printf("Hello %v\n", msg.Who)
 	}
 
@@ -31,7 +31,7 @@ func main() {
 	// props := actor.FromInstance(&helloActor{})
 	props := actor.PropsFromProducer(func() actor.Actor { return &helloActor{} })
 	// pid:= actor.Spawn(props)
-	pid, err := actor.Spawn(props)
+	pid, err := actor.Spawn(props) // エラーになる
 	if err != nil {
 		panic(err)
 	}
