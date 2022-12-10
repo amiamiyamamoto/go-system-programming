@@ -31,7 +31,7 @@ func main() {
 	// props := actor.FromInstance(&helloActor{})
 	props := actor.PropsFromProducer(func() actor.Actor { return &helloActor{} })
 	// pid:= actor.Spawn(props)
-	pid, err := actor.Spawn(props) // エラーになる
+	pid, err := actor.Spawn(props) // エラーになる。この関数がない
 	if err != nil {
 		panic(err)
 	}
