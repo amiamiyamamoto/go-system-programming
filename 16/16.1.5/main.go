@@ -25,8 +25,26 @@ var d *Struct = &Struct{param: "param"}
 
 // 固定長配列を定義
 func main() {
-	fmt.Println(a)
-	a := 1
+	// 固定長配列を定義
+	a := [4]int{1, 2, 3, 4}
+
+	// サイズを持ったスライスを定義
+	b := make([]int, 4)
+
+	// サイズとキャパシティを持ったスライスを定義
+	c := make([]int, 4, 16)
+
+	// マップを定義
+	d := make(map[string]int)
+
+	// サイズとキャパシティを持ったスライスを定義
+	e := make(map[string]int, 100)
+
+	// バッファなしのチャネル
+	f := make(chan string)
+
+	// バッファありのチャネル
+	g := make(chan string, 10)
 	fmt.Println(a)
 
 }
