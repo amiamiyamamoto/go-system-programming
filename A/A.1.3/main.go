@@ -1,6 +1,7 @@
 package main
 
 import (
+	// "math/randでも動く"
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
