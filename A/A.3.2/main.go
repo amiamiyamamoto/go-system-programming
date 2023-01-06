@@ -59,10 +59,11 @@ func main() {
 	fmt.Println(string(output))
 }
 
-func (s *Sesstion) CombinedOutput(cmd string) ([]byte, error) {
-	var b singleWriter
-	s.Stdout = &b
-	s.Stderr = &b
-	err := s.Run(cmd)
-	return b.b.Byte(), err
-}
+// CombineOutputメソッドの内部
+// func (s *Session) CombinedOutput(cmd string) ([]byte, error) {
+// 	var b singleWriter
+// 	s.Stdout = &b
+// 	s.Stderr = &b
+// 	err := s.Run(cmd)
+// 	return b.b.Byte(), err
+// }
